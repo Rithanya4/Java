@@ -1,4 +1,4 @@
-import java.util.*;
+1.import java.util.*;
 
 class HelloWorld {
     public static void main(String[] args) {
@@ -9,3 +9,36 @@ class HelloWorld {
          
     }
 }
+
+2.import java.util.*;
+
+class HelloWorld {
+    public static void main(String[] args) {
+       int count=1;
+       String str="AAABBC";
+       String newstr="";
+       
+       for(int i=1;i<str.length();i++){
+           
+           if(str.charAt(i)==str.charAt(i-1)){
+               count++;
+              }
+              
+           else{
+                  newstr+=str.charAt(i-1);
+                //   newstr+=newchar;
+                  newstr+=count;
+                
+           count=1;
+           }
+           
+    }
+    //   System.out.println(newstr);
+    //  System.out.println(str.charAt(str.length()-1));
+    newstr+=str.charAt(str.length()-1);
+      newstr+=count;
+     System.out.println(newstr);
+    
+    }
+}
+2.
