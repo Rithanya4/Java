@@ -1,0 +1,70 @@
+1.Permutations:
+import java.util.ArrayList;
+import java.util.List;
+
+public class Permutations {
+
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        generatePermutations(nums, 0, result);
+        return result;
+    }
+
+    private static void generatePermutations(int[] nums, int index, List<List<Integer>> result) {
+        if (index == nums.length - 1) {
+            List<Integer> permutation = new ArrayList<>();
+            for (int num : nums) {
+                permutation.add(num);
+            }
+            result.add(permutation);
+            return;
+        }
+
+        for (int i = index; i < nums.length; i++) {
+            // Swap elements to create permutations
+            swap(nums, index, i);
+
+            // Recursively generate permutations for the remaining elements
+            generatePermutations(nums, index + 1, result);
+
+            // Backtrack: Undo the swap for the next iteration
+            swap(nums, index, i);
+        }
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        int[] nums = {1, 4, 3};
+        List<List<Integer>> permutations = permute(nums);
+
+        // Print the permutations
+        for (List<Integer> permutation : permutations) {
+            System.out.println(permutation);
+        }
+    }
+}
+2.Given the list of array return array in which each element is the product of other element except ith element (try to do it without division operation)
+
+class HelloWorld {
+    public static void main(String[] args) {
+        
+        int[] nums={1,2,3,4}; //24,12,8,6
+         int pdt=1,pdtr=1;
+        int[] result=new int[nums.length];
+
+        for(int j=0;j<nums.length;j++){
+            result[j]=pdt;
+             pdt*=nums[j];  
+        }
+        for(int k=nums.length-1;k>=0;k--){
+            result[k]*=pdtr;
+            pdtr*=nums[k];
+         }
+    }
+}
