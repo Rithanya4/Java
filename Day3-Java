@@ -89,3 +89,22 @@ public class sample{
    
 }
 }
+3.Given a sorted integer array (in increasing order), remove duplicates in-place such that each unique element appears only once. 
+The relative order of the elements should be kept the same. Then return the number of unique elements in the array. 
+class Solution {
+    public int removeDuplicates(int[] nums) {
+         int count=1;
+
+      for(int i=1;i<nums.length;i++){
+              if(nums[i]!=nums[i-1]){
+                  nums[count]=nums[i];
+                  count++;
+          }
+      }
+      System.out.println(count+1);
+      for(int i=0;i<count;i++){
+          System.out.println(nums[i]);
+      }
+      return count;
+    }
+}
