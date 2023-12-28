@@ -1,0 +1,91 @@
+1.PAlindrome,prime:
+public class PalPrime {
+    private int[] numbers;
+
+    public PalPrime(int[] numbers) {
+        this.numbers = numbers;
+        traverseAndPrint();
+    }
+
+    private void traverseAndPrint() {
+        for (int number : numbers) {
+            String message = generateMessage(number);
+            System.out.println(message);
+        }
+    }
+
+    private String generateMessage(int number) {
+        if (isPalPrime(number)) {
+            return "Number " + number + " is PalPrime.";
+        } else if (isPalindrome(number)) {
+            return "Number " + number + " is Palindrome.";
+        } else if (isPrime(number)) {
+            return "Number " + number + " is Prime.";
+        } else {
+            return "Number " + number + " is neither PalPrime nor Palindrome nor Prime.";
+        }
+    }
+
+    private boolean isPalindrome(int num) {
+        int original = num;
+        int reversed = 0;
+
+        while (num != 0) {
+            int digit = num % 10;
+            reversed = reversed * 10 + digit;
+            num /= 10;
+        }
+
+        return original == reversed;
+    }
+
+    private boolean isPrime(int num) {
+        if (num <= 1) {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isPalPrime(int num) {
+        return isPalindrome(num) && isPrime(num);
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        int[] numbers = {131, 17, 25, 101};
+        PalPrime palPrimeInstance = new PalPrime(numbers);
+    }
+}
+2.Constructors:
+public class sample{
+    int value;
+    
+    public sample(){
+        System.out.println("Default constructor");
+        value=0;
+    }
+    public sample(int value){
+        System.out.println("Parameters");
+        System.out.println(value);
+    }
+    public sample(String message){
+         System.out.println("Parameterized constructor");
+          System.out.println(message);
+    }
+// public void showValue() {
+//         System.out.println("Current value: " + value);
+//     }
+ public static void main(String[] args) {
+     sample obj= new sample();
+     sample obj1= new sample(2);
+     sample obj2=new sample("Hello");
+   
+}
+}
