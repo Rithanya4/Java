@@ -1,0 +1,195 @@
+1.import java.util.*;
+
+class Member{
+   String name;
+   int age;
+   int Phone_number;
+   String address;
+   int salary;
+   
+   Member( String name,int age, int Phone_number,String address,int salary){
+       this.name=name;
+       this.Phone_number=Phone_number;
+       this.address=address;
+       this.age=age;
+       this.salary=salary;
+   }
+   
+   void printSalary(){
+       System.out.println("Salary is:"+salary);
+   }
+}
+
+class Employee extends Member{
+    String specialization;
+    Employee(String specialization, String name,int age, int Phone_number,String address,int salary){
+         super(name, age, Phone_number, address, salary);
+        this.specialization=specialization;
+    }
+}
+
+class Manager extends Member{
+    String department;
+    Manager(String department, String name,int age, int Phone_number,String address,int salary){
+          super(name, age, Phone_number, address, salary);
+        this.department=department;
+    }
+}
+class Main{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter Specialization:");
+        String Specialization=sc.next();
+         System.out.println("Enter name:");
+        String name=sc.next();
+         System.out.println("Enter age:");
+        int age=sc.nextInt();
+         System.out.println("Enter PhoneNumber:");
+        int Phone_number=sc.nextInt();
+         System.out.println("Enter address:");
+        String address=sc.next();
+         System.out.println("Enter salary:");
+        int salary=sc.nextInt();
+        
+        Employee obj= new Employee(Specialization,name,age,Phone_number,address,salary);
+        
+        System.out.println("\nEmployee Details:");
+        System.out.println("Name: " + obj.name);
+        System.out.println("Age: " + obj.age);
+        System.out.println("Phone Number: " + obj.Phone_number);
+        System.out.println("Address: " + obj.address);
+        obj.printSalary();  // Using the printSalary method inherited from the Member class
+        System.out.println("Specialization: " + obj.specialization);
+        System.out.println();
+    }
+}
+2.Interface:
+// Interface for common account operations
+interface AccountOperations {
+    void deposit(double amount);
+
+    void withdraw(double amount);
+
+    double checkBalance();
+}
+
+// Abstract class for common account properties
+abstract class BankAccount implements AccountOperations {
+    String accountNumber;
+    String accountHolder;
+    double balance;
+
+    BankAccount(String accountNumber, String accountHolder, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolder = accountHolder;
+        this.balance = balance;
+    }
+}
+
+// Concrete class for Savings Account
+class SavingsAccount extends BankAccount {
+    double interestRate;
+
+    SavingsAccount(String accountNumber, String accountHolder, double balance, double interestRate) {
+        super(accountNumber, accountHolder, balance);
+        this.interestRate = interestRate;
+    }
+
+    @Override
+    public void deposit(double amount) {
+        balance += amount;
+        // Additional logic for interest calculation can be added here
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+        } else {
+            System.out.println("Insufficient funds");
+        }
+    }
+
+    @Override
+    public double checkBalance() {
+        return balance;
+    }
+}
+
+// Concrete class for Checking Account
+class CheckingAccount extends BankAccount {
+    double overdraftLimit;
+
+    CheckingAccount(String accountNumber, String accountHolder, double balance, double overdraftLimit) {
+        super(accountNumber, accountHolder, balance);
+        this.overdraftLimit = overdraftLimit;
+    }
+
+    @Override
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        if (amount <= balance + overdraftLimit) {
+            balance -= amount;
+        } else {
+            System.out.println("Exceeds overdraft limit");
+        }
+    }
+
+    @Override
+    public double checkBalance() {
+        return balance;
+    }
+}
+
+// Concrete class for Loan Account
+class LoanAccount extends BankAccount {
+    double interestRate;
+
+    LoanAccount(String accountNumber, String accountHolder, double balance, double interestRate) {
+        super(accountNumber, accountHolder, balance);
+        this.interestRate = interestRate;
+    }
+
+    @Override
+    public void deposit(double amount) {
+        System.out.println("Loan account: Cannot deposit into a loan account");
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        System.out.println("Loan account: Cannot withdraw from a loan account");
+    }
+
+    @Override
+    public double checkBalance() {
+        return balance; // For a loan account, checking balance might be relevant for information purposes
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Example usage:
+        SavingsAccount savingsAccount = new SavingsAccount("SA123", "John Doe", 1000.0, 0.02);
+        CheckingAccount checkingAccount = new CheckingAccount("CA456", "Jane Smith", 2000.0, 500.0);
+        LoanAccount loanAccount = new LoanAccount("LA789", "Robert Johnson", -5000.0, 0.05);
+
+        System.out.println("Initial Balances:");
+        System.out.println("Savings Account: " + savingsAccount.checkBalance());
+        System.out.println("Checking Account: " + checkingAccount.checkBalance());
+        System.out.println("Loan Account: " + loanAccount.checkBalance());
+
+        savingsAccount.deposit(500.0);
+        checkingAccount.withdraw(1000.0);
+        loanAccount.withdraw(2000.0);
+
+        System.out.println("\nBalances after transactions:");
+        System.out.println("Savings Account: " + savingsAccount.checkBalance());
+        System.out.println("Checking Account: " + checkingAccount.checkBalance());
+        System.out.println("Loan Account: " + loanAccount.checkBalance());
+    }
+}
+3.
