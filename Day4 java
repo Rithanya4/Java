@@ -192,4 +192,117 @@ public class Main {
         System.out.println("Loan Account: " + loanAccount.checkBalance());
     }
 }
-3.
+3.public class Calculator {
+    // Method to multiply two integers
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    // Method overload to multiply three doubles
+    public double multiply(double x, double y, double z) {
+        return x * y * z;
+    }
+
+    public static void main(String[] args) {
+        // Creating an instance of the Calculator class
+        Calculator calculator = new Calculator();
+
+        // Calling the multiply method with two integers
+        int result1 = calculator.multiply(5, 7);
+        System.out.println("Result of multiplying two integers: " + result1);
+
+        // Calling the multiply method with three doubles
+        double result2 = calculator.multiply(2.5, 3.0, 1.5);
+        System.out.println("Result of multiplying three doubles: " + result2);
+    }
+}
+4.class vehicle{
+    int speed=5;
+    void calculateSpeed(){
+        System.out.println("Speed is:"+speed);
+    }
+}
+
+class car extends vehicle{
+    int passengers;
+    car(int passengers){
+        this.passengers=passengers;
+        calculateSpeed();
+    }
+    void calculateSpeed(){
+        int car=speed*passengers;
+        System.out.println(car);
+    }
+}
+class motorcycle extends vehicle{
+    int wheels;
+    motorcycle(int wheels){
+        this.wheels=wheels;
+        calculateSpeed();
+    }
+    void calculateSpeed(){
+        int motor=speed*wheels;
+        System.out.println(motor);
+    }
+}
+
+class Main{
+    public static void main(String args[]){
+        car obj=new car(5);
+        motorcycle obj1=new motorcycle(4);
+    }
+}
+5.class employee{
+    int id;
+    String name;
+    
+    employee(int id,String name){
+        this.id=id;
+        this.name=name;
+    }
+    void calculateSalary(){
+        int salary=50000;
+        System.out.println("Salary is:"+salary);
+    }
+}
+
+class manager extends employee{
+    int bonus;
+    manager(int id,String name,int bonus){
+        super(id,name);
+        this.bonus=bonus;
+        calculateSalary();
+    }
+    void calculateSalary(){
+        int salary=50000+bonus;
+         System.out.println("Manager:");
+        System.out.println("Name:"+name);
+         System.out.println("ID:"+id);
+        System.out.println("salary of manager:"+salary);
+    }
+}
+class developer extends employee{
+    String lang;
+    int allowance;
+    developer(int id,String name,String lang,int allowance){
+         super(id,name);
+        this.lang=lang;
+        this.allowance=allowance;
+        calculateSalary();
+    }
+    void calculateSalary(){
+        int salary=50000+allowance;
+        System.out.println("------------------------");
+       System.out.println("Developer:");
+        System.out.println("Name:"+name);
+         System.out.println("ID:"+id);
+        System.out.println("salary of manager:"+salary);
+    }
+}
+
+class Main{
+    public static void main(String args[]){
+        manager obj=new manager(1,"AAA",5000);
+        developer obj1=new developer(2,"BBB","JAva",4000);
+    }
+}
