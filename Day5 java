@@ -1,0 +1,190 @@
+1.Threads:
+class MyRunnable implements Runnable {
+    public void run() {
+        // Fetch the name of the current thread
+        String threadName = Thread.currentThread().getName();
+        System.out.println("Thread name: " + threadName);
+    }
+}
+
+class ThreadExample {
+    public static void main(String[] args) {
+        // Create instances of the MyRunnable class
+        MyRunnable myRunnable = new MyRunnable();
+
+        // Create two threads with the same Runnable instance
+        Thread t1 = new Thread(myRunnable);
+        Thread t2 = new Thread(myRunnable);
+
+        // Set names for the threads
+        t1.setName("Thread-1");
+        t2.setName("Thread-2");
+
+        // Start the threads
+        t1.start();
+        t2.start();
+    }
+}
+2.Print number using 2 threads:
+public class Main {
+
+    // Starting counter
+    int counter = 1;
+
+    static int N;
+
+    // Function to print odd numbers
+    public void printOddNumber() {
+        synchronized (this) {
+            // Print numbers till N
+            for (int i = 0; i < N; i++) {
+
+                // Exception handle
+                try {
+                    // Print the odd number
+                    if (counter % 2 != 0) {
+                        System.out.print(counter + " ");
+
+                        // Increment counter
+                        counter++;
+
+                        // Notify to the other thread
+                        notify();
+                    } else {
+                        // Wait for the other thread to print its number
+                        wait();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // Function to print even numbers
+    public void printEvenNumber() {
+        synchronized (this) {
+            // Print numbers till N
+            for (int i = 0; i < N; i++) {
+
+                // Exception handle
+                try {
+                    // Print the even number
+                    if (counter % 2 == 0) {
+                        System.out.print(counter + " ");
+
+                        // Increment counter
+                        counter++;
+
+                        // Notify to the other thread
+                        notify();
+                    } else {
+                        // Wait for the other thread to print its number
+                        wait();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // Driver Code
+    public static void main(String[] args) {
+        // Given Number N
+        N = 10;
+
+        // Create an object of the class
+        Main mt = new Main();
+
+        // Create thread t1
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                mt.printEvenNumber();
+            }
+        });
+
+        // Create thread t2
+        Thread t2 = new Thread(new Runnable() {
+            public void run() {
+                mt.printOddNumber();
+            }
+        });
+
+        // Start both threads
+        t1.start();
+        t2.start();
+    }
+}
+3.public class PrimePalindromeThread {
+
+    public static void main(String[] args) {
+        // Create an object of the class
+        PrimePalindromeThread instance = new PrimePalindromeThread();
+
+        // Create thread t1 to find prime numbers
+        Thread t1 = new Thread(() -> instance.findPrimes(0, 10));
+
+        // Create thread t2 to find palindrome numbers
+        Thread t2 = new Thread(() -> instance.findPalindromes(10, 50));
+
+        // Start thread t1
+        t1.start();
+        try {
+            // Wait for thread t1 to complete
+            t1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Start thread t2 after t1 completes
+        t2.start();
+    }
+
+    // Function to check if a number is prime
+    private boolean isPrime(int num) {
+        if (num < 2) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Function to find prime numbers in a given range
+    private void findPrimes(int start, int end) {
+        System.out.println("Prime numbers in the range 0 to 10:");
+        for (int i = start; i <= end; i++) {
+            if (isPrime(i)) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+
+    // Function to check if a number is palindrome
+    private boolean isPalindrome(int num) {
+        int original = num;
+        int reversed = 0;
+        while (num != 0) {
+            int digit = num % 10;
+            reversed = reversed * 10 + digit;
+            num /= 10;
+        }
+        return original == reversed;
+    }
+
+    // Function to find palindrome numbers in a given range
+    private void findPalindromes(int start, int end) {
+        System.out.println("Palindrome numbers in the range 10 to 50:");
+        for (int i = start; i <= end; i++) {
+            if (isPalindrome(i)) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+}
